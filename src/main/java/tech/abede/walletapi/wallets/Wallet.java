@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import tech.abede.walletapi.transactions.Transaction;
 @Getter
 @Setter
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wallet {
@@ -34,7 +36,6 @@ public class Wallet {
     private Double balance;
 
     @OneToOne
-    @Cascade(CascadeType.ALL)
     private Customer customer;
 
     @OneToMany(mappedBy = "wallet")
