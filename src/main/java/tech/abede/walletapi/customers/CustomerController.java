@@ -26,6 +26,7 @@ public class CustomerController {
     public ResponseEntity<CustomerResponse> createOne(@Valid @RequestBody CustomerRequest customerRequest){
         Customer customer = customerRequest.convertToEntity();
         Customer newCustomer = customerService.createOne(customer);
+        customerService.topUp(newCustomer, customerRequest.getFirstTopUp());
         CustomerResponse customerResponse = newCustomer.convertToResponse();
         return ResponseEntity.status(201).body(customerResponse);
     }

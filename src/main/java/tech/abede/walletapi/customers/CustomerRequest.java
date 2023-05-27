@@ -1,9 +1,11 @@
 package tech.abede.walletapi.customers;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -38,6 +40,9 @@ public class CustomerRequest {
     @NotBlank
     private String password;
 
+    @DecimalMin(value = "100000")
+    private Double firstTopUp;
+
     public Customer convertToEntity(){
 
         Customer customer = Customer.builder()
@@ -50,15 +55,17 @@ public class CustomerRequest {
             .email(email)
             .username(username)
             .password(password)
+            .customer(customer)
             .build();
 
-        Wallet wallet = Wallet.builder()
-            .balance(100000.0)
-            .build();
+        Wallet wallet = Wallet.builder().
+            balance(0.0).
+            customer(customer).
+            build();
         
-        applicationUser.setCustomer(customer);
-        customer.setApplicationUser(applicationUser);
         customer.setWallet(wallet);
+        customer.setApplicationUser(applicationUser);
+
         return customer;
     }
 }

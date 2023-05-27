@@ -43,5 +43,16 @@ public class Wallet {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public void setBalanceAfterTransaction(Transaction transaction){
+        Double amount = transaction.getAmount()*transaction.getTransactionType().getValue();
+        Double balance = this.balance + amount;
+
+        if(balance < 0){
+            throw new BalanceNotEnoughException();
+        }
+
+        this.balance = balance;
+    }
     
 }
