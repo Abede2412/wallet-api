@@ -24,4 +24,9 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    public Customer getOneByid(Long id){
+        Customer customer = customerRepository.getReferenceById(id);
+        return customer;
+    }
+
 }

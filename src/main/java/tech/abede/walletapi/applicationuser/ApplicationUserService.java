@@ -1,5 +1,7 @@
 package tech.abede.walletapi.applicationuser;
 
+import java.util.UUID;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +23,10 @@ public class ApplicationUserService implements UserDetailsService {
         ApplicationUser applicationUser = applicationUserRepository.findByUsernameOrEmail(usernameOrEmail).orElseThrow(
                 () -> new UsernameNotFoundException("User Not Found with -> username or email" + usernameOrEmail));
         return UserPrincipal.build(applicationUser);
+    }
+
+    public ApplicationUser findById(UUID id){
+        return applicationUserRepository.getReferenceById(id);
     }
 
 }

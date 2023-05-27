@@ -58,5 +58,16 @@ public class Customer {
             .username(applicationUser.getUsername())
             .build();
     }
+
+    public CustomerInfo info(){
+        return CustomerInfo.builder()
+            .nik(NIK)
+            .name(name)
+            .dateOfBirth(dateOfBirth)
+            .username(applicationUser.getUsername())
+            .email(applicationUser.getEmail())
+            .walletBalance(wallet.getBalance())
+            .build();
+    }
  
 }
