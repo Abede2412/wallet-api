@@ -25,8 +25,6 @@ public class CustomerRequest {
     @NotBlank(message = "name is required")
     private String name;
 
-    @Min(value = 16)
-    @Max(value = 16)
     @Pattern(regexp = "^[0-9]{16}$", message = "NIK must be numeric with length 16")
     private String NIK;
 
