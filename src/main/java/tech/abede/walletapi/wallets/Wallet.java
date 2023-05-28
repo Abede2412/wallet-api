@@ -63,5 +63,13 @@ public class Wallet {
 
         this.balance = balance;
     }
+
+    public WalletResponseForTransfer convertToResponseForTransfer(){
+        return WalletResponseForTransfer.builder()
+            .id(id)
+            .balance(balance)
+            .transaction(transactions.get(transactions.size()-1))
+            .build();
+    }
     
 }

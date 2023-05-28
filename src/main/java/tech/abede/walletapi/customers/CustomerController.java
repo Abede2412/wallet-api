@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import tech.abede.walletapi.applicationuser.ApplicationUser;
-import tech.abede.walletapi.applicationuser.ApplicationUserService;
 import tech.abede.walletapi.authentication.model.UserPrincipal;
 
 @RestController
@@ -20,7 +18,6 @@ import tech.abede.walletapi.authentication.model.UserPrincipal;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final ApplicationUserService applicationUserService;
 
     @PostMapping("/customers")
     public ResponseEntity<CustomerResponse> createOne(@Valid @RequestBody CustomerRequest customerRequest){

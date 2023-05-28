@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import tech.abede.walletapi.applicationuser.ApplicationUser;
+import tech.abede.walletapi.applicationuser.ApplicationUserService;
 import tech.abede.walletapi.transactions.Transaction;
 import tech.abede.walletapi.transactions.TransactionService;
 import tech.abede.walletapi.transactions.TransactionType;
 import tech.abede.walletapi.wallets.Wallet;
-import tech.abede.walletapi.wallets.WalletRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -23,9 +23,12 @@ public class CustomerService {
 
     private final TransactionService transactionService;
 
+    private final ApplicationUserService applicationUserService;
+
 
     public Customer createOne(Customer customer) {
 
+        customerIsValid(customer);
         ApplicationUser applicationUser = customer.getApplicationUser();
         String hashPassword = bCryptPasswordEncoder.encode(applicationUser.getPassword());
         applicationUser.setPassword(hashPassword);
@@ -34,9 +37,28 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    public void customerIsValid(Customer customer){
+
+        if (applicationUserService.findByEmail(customer.getApplicationUser().getEmail()) != null){
+            throw new CustomerNotValidException("Email already is used");
+        }
+
+        if (applicationUserService.findByUsername(customer.getApplicationUser().getUsername()) != null){
+            throw new CustomerNotValidException("Username already is used");
+        }
+
+        if (customerIsExist(customer.getNIK()) != null){
+            throw new CustomerNotValidException("NIK already is used");
+        }
+    }
+
     public Customer getOneByid(UUID uuid){
         Customer customer = customerRepository.getReferenceById(uuid);
         return customer;
+    }
+
+    public Customer customerIsExist(String nik){
+        return customerRepository.findByNik(nik);
     }
 
     public void topUp(Customer customer, Double amount) {

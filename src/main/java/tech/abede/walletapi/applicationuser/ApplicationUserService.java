@@ -29,4 +29,12 @@ public class ApplicationUserService implements UserDetailsService {
         return applicationUserRepository.getReferenceById(id);
     }
 
+    public ApplicationUser findByUsername(String username){
+        return applicationUserRepository.findByUsername(username);
+    }
+
+    public ApplicationUser findByEmail(String email){
+        return applicationUserRepository.findByEmail(email);
+    }
+
 }

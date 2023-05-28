@@ -1,14 +1,14 @@
 package tech.abede.walletapi.customers;
 
 import java.time.LocalDate;
-import java.util.Optional;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,22 +22,24 @@ import tech.abede.walletapi.wallets.Wallet;
 @AllArgsConstructor
 public class CustomerRequest {
 
-    @NotBlank
+    @NotBlank(message = "name is required")
     private String name;
 
-    @Size(min = 16, max = 16)
+    @Min(value = 16)
+    @Max(value = 16)
+    @Pattern(regexp = "^[0-9]{16}$", message = "NIK must be numeric with length 16")
     private String NIK;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate dateOfBirth;
 
-    @NotBlank
+    @NotBlank(message = "username is required" )
     private String username;
 
     @Email
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "password is required")
     private String password;
 
     @DecimalMin(value = "100000")
