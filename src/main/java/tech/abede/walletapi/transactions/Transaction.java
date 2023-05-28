@@ -6,6 +6,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -39,6 +41,7 @@ public class Transaction {
     private String description;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "wallet_id", nullable = false)
     @Cascade(value = CascadeType.ALL)
     private Wallet wallet;

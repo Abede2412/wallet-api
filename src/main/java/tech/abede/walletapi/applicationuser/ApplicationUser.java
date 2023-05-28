@@ -2,11 +2,11 @@ package tech.abede.walletapi.applicationuser;
 
 import java.util.UUID;
 
-import org.hibernate.annotations.GenericGenerator;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,11 +24,12 @@ import tech.abede.walletapi.customers.Customer;
 public class ApplicationUser {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "customer_id")
     private UUID id;
 
     @OneToOne
+    @MapsId
+    @JoinColumn(name = "customer_id")
     private Customer customer;
  
     private String email;

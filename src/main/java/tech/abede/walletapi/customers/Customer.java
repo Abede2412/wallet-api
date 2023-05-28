@@ -2,10 +2,12 @@ package tech.abede.walletapi.customers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,8 +34,9 @@ import tech.abede.walletapi.wallets.Wallet;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     private String NIK;
 
@@ -43,12 +47,14 @@ public class Customer {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToOne
+    @OneToOne(mappedBy = "customer")
     @Cascade(CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Wallet wallet;
 
-    @OneToOne
+    @OneToOne(mappedBy = "customer")
     @Cascade(CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private ApplicationUser applicationUser;
 
     public CustomerResponse convertToResponse() {

@@ -32,13 +32,13 @@ public class CustomerController {
     }
 
     @SecurityRequirement(name = "bearerAuth")
-    @GetMapping("/customers/info")
+    @GetMapping("/customers")
     public ResponseEntity<CustomerInfo> getCustomerInfo(){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        ApplicationUser applicationUser = applicationUserService.findById(userPrincipal.getId());
+        Customer customer = customerService.getOneByid(userPrincipal.getId());
 
-        return ResponseEntity.ok().body(applicationUser.getCustomer().info());
+        return ResponseEntity.ok().body(customer.info());
     }
 }

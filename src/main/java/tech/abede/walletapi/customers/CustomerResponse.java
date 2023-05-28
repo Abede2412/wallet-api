@@ -1,5 +1,7 @@
 package tech.abede.walletapi.customers;
 
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +19,7 @@ public class CustomerResponse {
 
     private String username;
 
-    private Long walletId;
+    private UUID walletId;
 
     private double balance;
 

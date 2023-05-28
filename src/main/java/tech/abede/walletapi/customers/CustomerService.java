@@ -1,5 +1,7 @@
 package tech.abede.walletapi.customers;
 
+import java.util.UUID;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +34,8 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public Customer getOneByid(Long id){
-        Customer customer = customerRepository.getReferenceById(id);
+    public Customer getOneByid(UUID uuid){
+        Customer customer = customerRepository.getReferenceById(uuid);
         return customer;
     }
 
