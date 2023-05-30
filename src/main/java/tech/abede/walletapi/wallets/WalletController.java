@@ -22,13 +22,13 @@ public class WalletController {
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/wallets")
-    public ResponseEntity<Wallet> getWalletInfo(){
+    public ResponseEntity<WalletInfo> getWalletInfo(){
         
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Wallet wallet = walletService.findById(userPrincipal.getId());
 
-        return ResponseEntity.ok().body(wallet);
+        return ResponseEntity.ok().body(wallet.convertWalletInfo());
     }
 
     @SecurityRequirement(name = "bearerAuth")

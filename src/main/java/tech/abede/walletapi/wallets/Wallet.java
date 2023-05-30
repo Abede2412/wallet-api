@@ -71,5 +71,14 @@ public class Wallet {
             .transaction(transactions.get(transactions.size()-1))
             .build();
     }
+
+    public WalletInfo convertWalletInfo(){
+        return WalletInfo.builder()
+            .id(id)
+            .balance(balance)
+            .transactions(transactions)
+            .createdAt(createdAt)
+            .build();
+    }
     
 }
